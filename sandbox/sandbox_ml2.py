@@ -8,6 +8,8 @@ from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.dummy import DummyClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.tree import export_graphviz
 
 # Load and prepare data
 uri = "https://gist.githubusercontent.com/guilhermesilveira/4d1d4a16ccbf6ea4e0a64a38a24ec884/raw/afd05cb0c796d18f3f5a6537053ded308ba94bf7/car-prices.csv"
@@ -50,4 +52,10 @@ print(f'Dummy Accuracy Ratio: {round(dummy.score(raw_test_x, test_y)*100, 2)}%')
 svc_model = SVC()
 svc_model.fit(train_x, train_y)
 svc_prediction = svc_model.predict(test_x)
-print(f'SVC Model Accuracy Ratio 2: {round(svc_model.score(test_x, test_y)*100, 2)}%')
+print(f'SVC Model Accuracy Ratio: {round(svc_model.score(test_x, test_y)*100, 2)}%')
+
+# Decision Tree Classifier Model
+tree_model = DecisionTreeClassifier(max_depth=3)
+tree_model.fit(train_x, train_y)
+print(f'Decision Tree Model Accuracy Ratio: {round(tree_model.score(test_x, test_y)*100, 2)}%')
+graph = export_graphviz(tree_model, out_file=None)
